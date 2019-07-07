@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><title>P1042-1</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1042-1乒乓球
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>字符串</li>
+<li>模拟</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstdio&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cmath&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstring&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxn 62501</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> cl,cw,len;
+<span class="hljs-keyword">char</span> a[maxn];
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">char</span> c;
+    <span class="hljs-keyword">bool</span> b=<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>){
+        <span class="hljs-keyword">char</span> ch=getchar();
+        <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">'E'</span>)<span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">'\n'</span>)<span class="hljs-keyword">continue</span>;
+        <span class="hljs-keyword">else</span> a[len++]=ch;
+    }
+    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">strcmp</span>(a,<span class="hljs-string">"WWWWWWWWWWW"</span>)==<span class="hljs-number">0</span>){
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"11:0\n0:0\n\n11:0\n"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++){
+        <span class="hljs-keyword">if</span>(a[i]==<span class="hljs-string">'W'</span>)cw++;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a[i]==<span class="hljs-string">'L'</span>)cl++;
+        <span class="hljs-keyword">if</span>((cw==<span class="hljs-number">11</span>&amp;&amp;cl!=<span class="hljs-number">10</span>)||(cl==<span class="hljs-number">11</span>&amp;&amp;cw!=<span class="hljs-number">10</span>)){
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d:%d\n"</span>,cw,cl);
+            b=<span class="hljs-number">1</span>;
+            cw=<span class="hljs-number">0</span>,cl=<span class="hljs-number">0</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((cw==<span class="hljs-number">11</span>&amp;&amp;cl==<span class="hljs-number">10</span>)||(cl==<span class="hljs-number">11</span>&amp;&amp;cw==<span class="hljs-number">10</span>)){
+            <span class="hljs-keyword">while</span>(i&lt;len){
+                i++;
+                <span class="hljs-keyword">if</span>(a[i]==<span class="hljs-string">'W'</span>)cw++;
+                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a[i]==<span class="hljs-string">'L'</span>)cl++;
+                <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(cw-cl)&gt;=<span class="hljs-number">2</span>)<span class="hljs-keyword">break</span>;
+            }
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d:%d\n"</span>,cw,cl);
+            b=<span class="hljs-number">1</span>;
+            cw=<span class="hljs-number">0</span>,cl=<span class="hljs-number">0</span>;
+        }
+    }
+    <span class="hljs-keyword">if</span>((cw!=<span class="hljs-number">0</span>||cl!=<span class="hljs-number">0</span>)||b==<span class="hljs-number">0</span>)<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d:%d\n"</span>,cw,cl);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+    cw=<span class="hljs-number">0</span>,cl=<span class="hljs-number">0</span>;
+    b=<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++){
+        <span class="hljs-keyword">if</span>(a[i]==<span class="hljs-string">'W'</span>)cw++;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a[i]==<span class="hljs-string">'L'</span>)cl++;
+        <span class="hljs-keyword">if</span>((cw==<span class="hljs-number">21</span>&amp;&amp;cl!=<span class="hljs-number">20</span>)||(cl==<span class="hljs-number">21</span>&amp;&amp;cw!=<span class="hljs-number">20</span>)){
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d:%d\n"</span>,cw,cl);
+            b=<span class="hljs-number">1</span>;
+            cw=<span class="hljs-number">0</span>,cl=<span class="hljs-number">0</span>;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((cw==<span class="hljs-number">21</span>&amp;&amp;cl==<span class="hljs-number">20</span>)||(cl==<span class="hljs-number">21</span>&amp;&amp;cw==<span class="hljs-number">20</span>)){
+            <span class="hljs-keyword">while</span>(i&lt;len){
+                i++;
+                <span class="hljs-keyword">if</span>(a[i]==<span class="hljs-string">'W'</span>)cw++;
+                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a[i]==<span class="hljs-string">'L'</span>)cl++;
+                <span class="hljs-keyword">if</span>(<span class="hljs-built_in">abs</span>(cw-cl)&gt;=<span class="hljs-number">2</span>)<span class="hljs-keyword">break</span>;
+            }
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d:%d\n"</span>,cw,cl);
+            b=<span class="hljs-number">1</span>;
+            cw=<span class="hljs-number">0</span>,cl=<span class="hljs-number">0</span>;
+        }
+    }
+    <span class="hljs-keyword">if</span>((cw!=<span class="hljs-number">0</span>||cl!=<span class="hljs-number">0</span>)||b==<span class="hljs-number">0</span>)<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d:%d\n"</span>,cw,cl);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

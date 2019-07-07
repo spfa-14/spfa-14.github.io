@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><title>P1044</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1044栈
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>DP</li>
+<li>Catalan</li>
+<li>数论</li>
+<li>栈</li>
+<li>递推</li>
+</ul>
+<hr>
+<pre><code class="language-cpp">#include&lt;cstdio&gt;
+using namespace std;
+long long catalan[<span class="hljs-number">21</span>]={<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">14</span>,<span class="hljs-number">42</span>,<span class="hljs-number">132</span>,<span class="hljs-number">429</span>,<span class="hljs-number">1430</span>,<span class="hljs-number">4862</span>,<span class="hljs-number">16796</span>,<span class="hljs-number">58786</span>,<span class="hljs-number">208012</span>,<span class="hljs-number">742900</span>,<span class="hljs-number">2674440</span>,<span class="hljs-number">9694845</span>,<span class="hljs-number">35357670</span>,<span class="hljs-number">129644790</span>,<span class="hljs-number">477638700</span>,<span class="hljs-number">1767263190</span>,<span class="hljs-number">6564120420</span>};
+int main(){
+    int n;
+    scanf(<span class="hljs-string">"%d"</span>,&amp;n);
+    printf(<span class="hljs-string">"%d"</span>,catalan[n<span class="hljs-number">-1</span>]);
+    return <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

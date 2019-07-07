@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><title>P1043</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1043数字游戏
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>前缀和</li>
+<li>DP</li>
+<li>搜索</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> maxn = <span class="hljs-number">100000</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">mod</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>{
+    <span class="hljs-keyword">if</span>(x&lt;<span class="hljs-number">0</span>) x+=maxn;
+    <span class="hljs-keyword">return</span> x%<span class="hljs-number">10</span>;
+}
+<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pow</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>{
+    <span class="hljs-keyword">int</span> k=<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;=x;i++)
+        k*=<span class="hljs-number">9</span>;
+    <span class="hljs-keyword">return</span> k;
+}
+<span class="hljs-keyword">int</span> n,m,arr[<span class="hljs-number">55</span>],mx=<span class="hljs-number">0</span>,mi = maxn;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> d,<span class="hljs-keyword">int</span> s,<span class="hljs-keyword">int</span> sound,<span class="hljs-keyword">int</span> x)</span></span>{
+    <span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span>(x*<span class="hljs-built_in">pow</span>(m-d)&lt;=mx&amp;&amp;x&gt;=mi) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">if</span>(d==m){
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=s;i-sound&lt;=n;i++){
+            a+=arr[(i<span class="hljs-number">-1</span>)%n+<span class="hljs-number">1</span>];
+        }
+        x*= mod(a);
+        mi = min(mi,x);
+        mx = max(mx,x);
+        <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=s;i-sound&lt;=n-d;i++){
+        a+=arr[(i<span class="hljs-number">-1</span>)%n+<span class="hljs-number">1</span>];
+        dfs(d+<span class="hljs-number">1</span>,i+<span class="hljs-number">1</span>,sound,x*mod(a));
+    }
+    <span class="hljs-keyword">return</span>;
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d %d"</span>,&amp;n,&amp;m);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++){
+        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>,&amp;arr[i]);
+    }
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)
+        dfs(<span class="hljs-number">1</span>,i+<span class="hljs-number">1</span>,i,<span class="hljs-number">1</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n%d"</span>,mi,mx);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+<span class="hljs-comment">//by luisleee</span></code></pre>
+</body></html>

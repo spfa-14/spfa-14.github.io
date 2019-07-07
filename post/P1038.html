@@ -1,0 +1,55 @@
+<!DOCTYPE html><html><head><title>P1038</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1038神经网络
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>图论</li>
+<li>拓扑排序</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-section">#include&lt;cstdio&gt;</span>
+<span class="hljs-section">#include&lt;queue&gt;</span>
+<span class="hljs-section">#define maxn 101</span>
+using namespace std;
+int n,p;
+int c[<span class="hljs-string">maxn</span>],u[<span class="hljs-string">maxn</span>],rd[<span class="hljs-string">maxn</span>],cd[<span class="hljs-string">maxn</span>],w[<span class="hljs-string">maxn</span>][<span class="hljs-symbol">maxn</span>];
+bool vis[<span class="hljs-string">maxn</span>][<span class="hljs-symbol">maxn</span>];
+queue<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">int</span>&gt;</span></span> q;
+int main(){
+<span class="hljs-code">    scanf("%d%d",&amp;n,&amp;p);</span>
+<span class="hljs-code">    for(int i=1;i&lt;=n;i++)scanf("%d%d",&amp;c[i],&amp;u[i]);</span>
+<span class="hljs-code">    for(int i=1;i&lt;=p;i++){</span>
+<span class="hljs-code">        int x,y,z;</span>
+<span class="hljs-code">        scanf("%d%d%d",&amp;x,&amp;y,&amp;z);</span>
+<span class="hljs-code">        vis[x][y]=1;</span>
+<span class="hljs-code">        rd[y]++;</span>
+<span class="hljs-code">        cd[x]++;</span>
+<span class="hljs-code">        w[x][y]=z;</span>
+<span class="hljs-code">    }</span>
+<span class="hljs-code">    for(int i=1;i&lt;=n;i++)if(cd[i]==0)cd[i]--;</span>
+<span class="hljs-code">    for(int i=1;i&lt;=n;i++)if(rd[i]==0)q.push(i);</span>
+<span class="hljs-code">    while(!q.empty()){</span>
+<span class="hljs-code">        int v=q.front();</span>
+<span class="hljs-code">        q.pop();</span>
+<span class="hljs-code">        for(int i=1;i&lt;=n;i++){</span>
+<span class="hljs-code">            if(vis[v][i]&amp;&amp;c[v]&gt;0){</span>
+<span class="hljs-code">                c[i]=c[i]+w[v][i]*c[v];</span>
+<span class="hljs-code">                rd[i]--;</span>
+<span class="hljs-code">                cd[v]--;</span>
+<span class="hljs-code">                if(rd[i]==0)c[i]-=u[i],q.push(i);</span>
+<span class="hljs-code">            }</span>
+<span class="hljs-code">        }</span>
+<span class="hljs-code">    }</span>
+<span class="hljs-code">    bool flag=0;</span>
+<span class="hljs-code">    for(int i=1;i&lt;=n;i++){</span>
+<span class="hljs-code">        if(cd[i]&lt;0&amp;&amp;c[i]&gt;0){</span>
+<span class="hljs-code">            flag=1;</span>
+<span class="hljs-code">            printf("%d %d\n",i,c[i]);</span>
+<span class="hljs-code">        }</span>
+<span class="hljs-code">    }</span>
+<span class="hljs-code">    if(!flag)printf("NULL");</span>
+<span class="hljs-code">    printf("\n");</span>
+<span class="hljs-code">    return 0;</span>
+}</code></pre>
+</body></html>

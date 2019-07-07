@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><title>P1011-1</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1011-1 车站
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>数论</li>
+<li>斐波那契</li>
+</ul>
+<hr>
+<pre><code class="language-cpp">#include&lt;cstdio&gt;
+<span class="hljs-built_in">int</span> f[<span class="hljs-number">25</span>]={<span class="hljs-number">0</span>,<span class="hljs-number">1</span>};
+<span class="hljs-built_in">int</span> main(){
+    <span class="hljs-built_in">int</span> n,a,m,x,b;
+    scanf(<span class="hljs-string">"%d%d%d%d"</span>,&amp;a,&amp;n,&amp;m,&amp;x);
+    <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i=<span class="hljs-number">2</span>;i&lt;n;i++){
+        f[i]=f[i<span class="hljs-number">-1</span>]+f[i<span class="hljs-number">-2</span>];
+    }
+    b=(m-f[n<span class="hljs-number">-3</span>]*a-a)/(f[n<span class="hljs-number">-2</span>]<span class="hljs-number">-1</span>);
+    <span class="hljs-keyword">if</span>(x==<span class="hljs-number">1</span>){
+        printf(<span class="hljs-string">"%d"</span>,a);
+    }<span class="hljs-keyword">else</span>{
+        printf(<span class="hljs-string">"%d"</span>,(f[x<span class="hljs-number">-2</span>]+<span class="hljs-number">1</span>)*a+(f[x<span class="hljs-number">-1</span>]<span class="hljs-number">-1</span>)*b);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+<span class="hljs-comment">//by luisleee</span></code></pre>
+</body></html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><title>P1024</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1024一元三次方程求解
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>二分答案</li>
+<li>分治</li>
+<li>数论</li>
+<li>枚举</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">double</span> a,b,c,d;
+    <span class="hljs-keyword">double</span> as,bs,t,si;
+    <span class="hljs-keyword">double</span> x1,x2,x3;
+    <span class="hljs-built_in">cin</span>&gt;&gt;a&gt;&gt;b&gt;&gt;c&gt;&gt;d;
+
+    as=b*b<span class="hljs-number">-3</span>*a*c;
+    bs=b*c<span class="hljs-number">-9</span>*a*d;
+    t=(<span class="hljs-number">2</span>*as*b<span class="hljs-number">-3</span>*a*bs)/(<span class="hljs-number">2</span>*<span class="hljs-built_in">sqrt</span>(as*as*as));
+    si=<span class="hljs-built_in">acos</span>(t);
+
+    x1=(-b<span class="hljs-number">-2</span>*<span class="hljs-built_in">sqrt</span>(as)*<span class="hljs-built_in">cos</span>(si/<span class="hljs-number">3</span>))/(<span class="hljs-number">3</span>*a);
+    x2=(-b+<span class="hljs-built_in">sqrt</span>(as)*(<span class="hljs-built_in">cos</span>(si/<span class="hljs-number">3</span>)+<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">3</span>)*<span class="hljs-built_in">sin</span>(si/<span class="hljs-number">3</span>)))/(<span class="hljs-number">3</span>*a);
+    x3=(-b+<span class="hljs-built_in">sqrt</span>(as)*(<span class="hljs-built_in">cos</span>(si/<span class="hljs-number">3</span>)-<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">3</span>)*<span class="hljs-built_in">sin</span>(si/<span class="hljs-number">3</span>)))/(<span class="hljs-number">3</span>*a);
+
+    <span class="hljs-built_in">cout</span>&lt;&lt;fixed&lt;&lt;setprecision(<span class="hljs-number">2</span>)&lt;&lt;x1&lt;&lt;<span class="hljs-string">" "</span>;
+    <span class="hljs-built_in">cout</span>&lt;&lt;fixed&lt;&lt;setprecision(<span class="hljs-number">2</span>)&lt;&lt;x3&lt;&lt;<span class="hljs-string">" "</span>;
+    <span class="hljs-built_in">cout</span>&lt;&lt;fixed&lt;&lt;setprecision(<span class="hljs-number">2</span>)&lt;&lt;x2&lt;&lt;<span class="hljs-string">" "</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

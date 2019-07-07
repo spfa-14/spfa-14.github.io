@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><title>P1022</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1022计算器的改良
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>字符串</li>
+<li>数论</li>
+<li>模拟</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-comment">#include&lt;bits/stdc++.h&gt;</span>
+using namespace std;
+char x;
+long long coe,value,<span class="hljs-attribute">opp</span>=1;
+double ans;
+int main(){
+    char <span class="hljs-attribute">c</span>=getchar();
+    long long <span class="hljs-attribute">cur</span>=0,sign=1; bool <span class="hljs-attribute">value_gotten</span>=<span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>){
+        <span class="hljs-keyword">if</span> (isalpha(c)){
+            <span class="hljs-attribute">x</span>=c;
+            <span class="hljs-keyword">if</span> (<span class="hljs-attribute">cur</span>==0 &amp;&amp; !value_gotten) coe+=opp*sign,<span class="hljs-attribute">value_gotten</span>=<span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">else</span> coe+=opp*sign<span class="hljs-number">*c</span>ur,<span class="hljs-attribute">cur</span>=0,sign=1,value_gotten=false;
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-attribute">c</span>=='-') value+=-opp*sign<span class="hljs-number">*c</span>ur,<span class="hljs-attribute">cur</span>=0,sign=-1,value_gotten=false;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-attribute">c</span>=='+') value+=-opp*sign<span class="hljs-number">*c</span>ur,<span class="hljs-attribute">cur</span>=0,sign=1,value_gotten=false;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isdigit(c)) <span class="hljs-attribute">cur</span>=cur*10+c-'0',value_gotten=true;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-attribute">c</span>=='=') value+=-opp*sign<span class="hljs-number">*c</span>ur,<span class="hljs-attribute">cur</span>=0,sign=1,opp=-opp,value_gotten=false;
+        <span class="hljs-keyword">else</span> {value+=-opp*sign<span class="hljs-number">*c</span>ur;break;}
+        <span class="hljs-attribute">c</span>=getchar();
+    }
+    <span class="hljs-attribute">ans</span>=double(value)/coe;
+    printf(<span class="hljs-string">"%c=%.3lf"</span>,x,<span class="hljs-attribute">ans</span>==0?abs(ans):ans);
+    return 0;
+}</code></pre>
+</body></html>

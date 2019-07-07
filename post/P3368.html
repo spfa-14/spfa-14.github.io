@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><title>P3368</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P3368树状数组2
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>树状数组</li>
+</ul>
+<hr>
+<pre><code class="language-cpp">
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> n,m;
+<span class="hljs-keyword">int</span> c[<span class="hljs-number">500000</span>];
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lowbit</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>{
+    <span class="hljs-keyword">return</span> x&amp;(-x);
+}
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> v)</span></span>{
+    <span class="hljs-keyword">while</span>(x&lt;=n){
+        c[x]+=v;
+        x+=lowbit(x);
+    }
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">query</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>{
+    <span class="hljs-keyword">int</span> ans=<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span>(x!=<span class="hljs-number">0</span>){
+        ans+=c[x];
+        x-=lowbit(x);
+    }
+    <span class="hljs-keyword">return</span> ans;
+}
+<span class="hljs-keyword">int</span> f[<span class="hljs-number">500000</span>];
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">cin</span>&gt;&gt;n&gt;&gt;m;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++){
+        <span class="hljs-built_in">cin</span>&gt;&gt;f[i];
+        add(i,f[i]-f[i<span class="hljs-number">-1</span>]);
+    }
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=m;i++){
+        <span class="hljs-keyword">int</span> a;
+        <span class="hljs-built_in">cin</span>&gt;&gt;a;
+        <span class="hljs-keyword">if</span>(a==<span class="hljs-number">1</span>){
+            <span class="hljs-keyword">int</span> x,y,k;
+            <span class="hljs-built_in">cin</span>&gt;&gt;x&gt;&gt;y&gt;&gt;k;
+            add(x,k);
+            add(y+<span class="hljs-number">1</span>,-k);
+        }
+        <span class="hljs-keyword">if</span>(a==<span class="hljs-number">2</span>){
+            <span class="hljs-keyword">int</span> x;
+            <span class="hljs-built_in">cin</span>&gt;&gt;x;
+            <span class="hljs-built_in">cout</span>&lt;&lt;query(x)&lt;&lt;<span class="hljs-built_in">endl</span>;
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

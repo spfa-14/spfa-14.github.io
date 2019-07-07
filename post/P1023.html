@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><head><title>P1023</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1023税收与补贴问题
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>数论</li>
+<li>枚举</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-comment">#include&lt;stdio.h&gt;</span>
+<span class="hljs-comment">#include&lt;string.h&gt;</span>
+<span class="hljs-comment">#include&lt;math.h&gt;</span>
+using namespace std;
+struct hh{
+    int price,sale;
+}G[10001];
+int main(){
+    int n,m;
+    scanf(<span class="hljs-string">"%d"</span>,&amp;n);
+    int <span class="hljs-attribute">p</span>=1;
+    int chengben,ssale;
+    int <span class="hljs-attribute">g</span>=0;
+    scanf(<span class="hljs-string">"%d %d"</span>,&amp;chengben,&amp;ssale);
+    <span class="hljs-keyword">while</span>(scanf(<span class="hljs-string">"%d %d"</span>,&amp;G[p].price,&amp;G[p].sale)&amp;&amp;G[p].price!=-1){
+        <span class="hljs-keyword">if</span>(G[p].<span class="hljs-attribute">price</span>==n)
+           <span class="hljs-attribute">g</span>=p,p++;
+        <span class="hljs-keyword">else</span>{
+            p++;
+        }
+    }
+    p--;
+    scanf(<span class="hljs-string">"%d"</span>,&amp;m);
+    int <span class="hljs-attribute">f</span>=p;
+    f++;
+    <span class="hljs-keyword">if</span>(G[p].price&gt;n&amp;&amp;!g){
+        int <span class="hljs-attribute">e</span>=0;
+        <span class="hljs-keyword">for</span>(int <span class="hljs-attribute">i</span>=1;i&lt;=p;i++){
+            <span class="hljs-keyword">if</span>(G[i].price&lt;n)
+            {
+                G[p].<span class="hljs-attribute">price</span>=G[i].price;
+                G[p].<span class="hljs-attribute">sale</span>=G[i].sale;
+                e++;
+            }
+        }
+        <span class="hljs-keyword">if</span>(!e){
+            G[p].<span class="hljs-attribute">price</span>=chengben;
+            G[p].<span class="hljs-attribute">sale</span>=ssale;
+        }
+    }
+    <span class="hljs-keyword">for</span>(int <span class="hljs-attribute">i</span>=G[p].price+1;i&lt;=10001;i++){
+         G[f].<span class="hljs-attribute">price</span>=i;
+         G[f].<span class="hljs-attribute">sale</span>=G[p].sale-(m*(G[f].price-G[p].price));
+         f++;
+    }
+    <span class="hljs-keyword">if</span>(<span class="hljs-attribute">g</span>==0){
+        <span class="hljs-keyword">for</span>(int <span class="hljs-attribute">i</span>=p;i&lt;=10001;i++){
+            <span class="hljs-keyword">if</span>(G[i].<span class="hljs-attribute">price</span>==n){
+                <span class="hljs-attribute">g</span>=i;
+                break;
+            }
+        }
+    }
+    int <span class="hljs-attribute">h</span>=0;
+    <span class="hljs-keyword">for</span>(int <span class="hljs-attribute">i</span>=1;i&lt;=10001;i++){
+        int a=(G[g].price-chengben+i)*G[g].sale;
+        int b=(G[g-1].price-chengben+i)*G[g-1].sale;
+        int c=(G[g+1].price-chengben+i)*G[g+1].sale;
+        <span class="hljs-keyword">if</span>(a&gt;b&amp;&amp;a&gt;c){
+           printf(<span class="hljs-string">"%d"</span>,i);
+           h++;
+            return 0;
+        }
+    }
+    <span class="hljs-keyword">if</span>(<span class="hljs-attribute">h</span>==0){
+        <span class="hljs-keyword">for</span>(int <span class="hljs-attribute">i</span>=1;i&lt;=10001;i++){
+            int a=(G[g].price-chengben-i)*G[g].sale;
+            int b=(G[g-1].price-chengben-i)*G[g-1].sale;
+            int c=(G[g+1].price-chengben-i)*G[g+1].sale;
+            <span class="hljs-keyword">if</span>(a&gt;=b&amp;&amp;a&gt;=c){
+                printf(<span class="hljs-string">"-%d"</span>,i);
+                h++;
+                return 0;
+            }
+        }
+        <span class="hljs-keyword">if</span>(<span class="hljs-attribute">h</span>==0){
+            printf(<span class="hljs-string">"NO SOLUTION"</span>);
+        }
+        return 0;
+    }
+}</code></pre>
+</body></html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><title>P1014</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1014 Cantor表
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>枚举</li>
+<li>模拟</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cmath&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> l=<span class="hljs-number">1</span>,r,mid,n,a;
+    <span class="hljs-built_in">cin</span>&gt;&gt;n;
+    r=n;
+    <span class="hljs-keyword">while</span>(l&lt;r){
+        mid=(l+r)/<span class="hljs-number">2</span>;
+        <span class="hljs-keyword">if</span>(mid*(mid+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span>&lt;n)l=mid+<span class="hljs-number">1</span>;
+        <span class="hljs-keyword">else</span> r=mid;
+    }
+    a=n-l*(l<span class="hljs-number">-1</span>)/<span class="hljs-number">2</span>;
+    <span class="hljs-keyword">if</span>(l%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>)<span class="hljs-built_in">cout</span>&lt;&lt;a&lt;&lt;<span class="hljs-string">'/'</span>&lt;&lt;l+<span class="hljs-number">1</span>-a;
+    <span class="hljs-keyword">else</span> <span class="hljs-built_in">cout</span>&lt;&lt;l+<span class="hljs-number">1</span>-a&lt;&lt;<span class="hljs-string">'/'</span>&lt;&lt;a;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><title>P1004</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1004 方格取数
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>DP</li>
+</ul>
+<hr>
+<pre><code class="language-cpp">//
+//Author:luisleee
+//
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int f<span class="hljs-string">[12]</span><span class="hljs-string">[12]</span><span class="hljs-string">[12]</span><span class="hljs-string">[12]</span>,a<span class="hljs-string">[12]</span><span class="hljs-string">[12]</span>,n,x,y,z;
+int main() {
+    cin&gt;&gt;n&gt;&gt;x&gt;&gt;y&gt;&gt;z;
+    while(x!=<span class="hljs-number">0</span>||y!=<span class="hljs-number">0</span>||z!=<span class="hljs-number">0</span>){
+        a<span class="hljs-string">[x]</span><span class="hljs-string">[y]</span>=z;
+        cin&gt;&gt;x&gt;&gt;y&gt;&gt;z;
+    }
+    for(int i=<span class="hljs-number">1</span>;i&lt;=n;i++){
+        for(int j=<span class="hljs-number">1</span>;j&lt;=n;j++){
+            for(int k=<span class="hljs-number">1</span>;k&lt;=n;k++){
+                for(int l=<span class="hljs-number">1</span>;l&lt;=n;l++){
+                    f<span class="hljs-string">[i]</span><span class="hljs-string">[j]</span><span class="hljs-string">[k]</span><span class="hljs-string">[l]</span>=max(max(f<span class="hljs-string">[i-1]</span><span class="hljs-string">[j]</span><span class="hljs-string">[k-1]</span><span class="hljs-string">[l]</span>,f<span class="hljs-string">[i-1]</span><span class="hljs-string">[j]</span><span class="hljs-string">[k]</span><span class="hljs-string">[l-1]</span>),max(f<span class="hljs-string">[i]</span><span class="hljs-string">[j-1]</span><span class="hljs-string">[k-1]</span><span class="hljs-string">[l]</span>,f<span class="hljs-string">[i]</span><span class="hljs-string">[j-1]</span><span class="hljs-string">[k]</span><span class="hljs-string">[l-1]</span>))+a<span class="hljs-string">[i]</span><span class="hljs-string">[j]</span>+a<span class="hljs-string">[k]</span><span class="hljs-string">[l]</span>;
+                    if(i==k&amp;&amp;l==j){
+                        f<span class="hljs-string">[i]</span><span class="hljs-string">[j]</span><span class="hljs-string">[k]</span><span class="hljs-string">[l]</span>-=a<span class="hljs-string">[i]</span><span class="hljs-string">[j]</span>;
+                    }
+                }
+            }
+        }
+    }
+    cout&lt;&lt;f<span class="hljs-string">[n]</span><span class="hljs-string">[n]</span><span class="hljs-string">[n]</span><span class="hljs-string">[n]</span>;
+    return <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

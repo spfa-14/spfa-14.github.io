@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><title>P1009</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1009 阶乘之和
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>数论</li>
+<li>高精</li>
+</ul>
+<hr>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;cmath&gt;
+#include&lt;algorithm&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+#include&lt;string&gt;
+#include&lt;vector&gt;
+#include&lt;map&gt;
+#include&lt;queue&gt;
+using namespace std;
+int bor[<span class="hljs-number">52</span>][<span class="hljs-number">10000</span>];
+int n;
+int main(){
+    bor[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;
+    bor[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;
+    bor[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;
+    bor[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;
+    cin&gt;&gt;n;
+    for(int i=<span class="hljs-number">2</span>;i&lt;=n;i++){
+        for(int r=<span class="hljs-number">1</span>;r&lt;=bor[i<span class="hljs-number">-1</span>][<span class="hljs-number">0</span>];r++){
+            bor[i][r]=bor[i<span class="hljs-number">-1</span>][r]*i;
+        }
+        bor[i][<span class="hljs-number">0</span>]=bor[i<span class="hljs-number">-1</span>][<span class="hljs-number">0</span>];
+        for(int k=<span class="hljs-number">1</span>;k&lt;=bor[i][<span class="hljs-number">0</span>];k++){
+            if(bor[i][k]&gt;<span class="hljs-number">9</span>){
+                if(k==bor[i][<span class="hljs-number">0</span>]){
+                    bor[i][<span class="hljs-number">0</span>]++;
+                }
+                bor[i][k+<span class="hljs-number">1</span>]+=bor[i][k]/<span class="hljs-number">10</span>;
+                bor[i][k]<span class="hljs-comment">%=10;</span>
+            }
+        }
+    }
+    for(int i=<span class="hljs-number">1</span>;i&lt;=n;i++){
+        for(int r=<span class="hljs-number">1</span>;r&lt;=bor[n][<span class="hljs-number">0</span>];r++){
+            bor[n+<span class="hljs-number">1</span>][r]+=bor[i][r];
+        }
+    }
+    bor[n+<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=bor[n][<span class="hljs-number">0</span>];
+    for(int k=<span class="hljs-number">1</span>;k&lt;=bor[n+<span class="hljs-number">1</span>][<span class="hljs-number">0</span>];k++){
+        if(bor[n+<span class="hljs-number">1</span>][k]&gt;<span class="hljs-number">9</span>){
+            if(k==bor[n+<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]){
+                bor[n+<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]++;
+            }
+            bor[n+<span class="hljs-number">1</span>][k+<span class="hljs-number">1</span>]+=bor[n+<span class="hljs-number">1</span>][k]/<span class="hljs-number">10</span>;
+            bor[n+<span class="hljs-number">1</span>][k]<span class="hljs-comment">%=10;</span>
+        }
+    }
+    for(int i=bor[n+<span class="hljs-number">1</span>][<span class="hljs-number">0</span>];i&gt;<span class="hljs-number">0</span>;i--){
+        cout&lt;&lt;bor[n+<span class="hljs-number">1</span>][i];
+    }
+    cout&lt;&lt;endl;
+    return <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

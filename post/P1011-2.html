@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><title>P1011-2</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1011-2 车站
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>数论</li>
+<li>斐波那契</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-comment">#include&lt;cstdio&gt;</span>
+<span class="hljs-comment">#define maxn 21</span>
+using namespace std;
+struct station{
+  int ias;
+  int izs;
+  int oas;
+  int ozs;
+  int tas;
+  int tzs;
+}s[maxn];
+int a,n,m,x;
+int main(){
+  scanf(<span class="hljs-string">"%d%d%d%d"</span>,&amp;a,&amp;n,&amp;m,&amp;x);
+  s[1].<span class="hljs-attribute">ias</span>=1;
+  s[1].<span class="hljs-attribute">izs</span>=0;
+  s[1].<span class="hljs-attribute">oas</span>=0;
+  s[1].<span class="hljs-attribute">ozs</span>=0;
+  s[1].<span class="hljs-attribute">tas</span>=1;
+  s[1].<span class="hljs-attribute">tzs</span>=0;
+  s[2].<span class="hljs-attribute">ias</span>=0;
+  s[2].<span class="hljs-attribute">izs</span>=1;
+  s[2].<span class="hljs-attribute">oas</span>=0;
+  s[2].<span class="hljs-attribute">ozs</span>=1;
+  s[2].<span class="hljs-attribute">tas</span>=1;
+  s[2].<span class="hljs-attribute">tzs</span>=0;
+  <span class="hljs-keyword">for</span>(int <span class="hljs-attribute">i</span>=3;i&lt;=n;i++){
+    s[i].<span class="hljs-attribute">ias</span>=s[i-1].ias+s[i-2].ias;
+    s[i].<span class="hljs-attribute">izs</span>=s[i-1].izs+s[i-2].izs;
+    s[i].<span class="hljs-attribute">oas</span>=s[i-1].ias;
+    s[i].<span class="hljs-attribute">ozs</span>=s[i-1].izs;
+    s[i].<span class="hljs-attribute">tas</span>=s[i-1].tas+s[i].ias-s[i].oas;
+    s[i].<span class="hljs-attribute">tzs</span>=s[i-1].tzs+s[i].izs-s[i].ozs;
+  }
+  int <span class="hljs-attribute">tempa</span>=s[n-1].tas;
+  int <span class="hljs-attribute">tempz</span>=s[n-1].tzs;
+  int <span class="hljs-attribute">ts</span>=m;
+  <span class="hljs-attribute">ts-</span>=tempa*a;
+  int <span class="hljs-attribute">zval</span>=ts/tempz;
+  printf(<span class="hljs-string">"%d\n"</span>,s[x].tas<span class="hljs-number">*a</span>+s[x].tzs*zval);
+  return 0;
+}</code></pre>
+</body></html>

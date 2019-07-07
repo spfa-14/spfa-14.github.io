@@ -1,0 +1,30 @@
+<!DOCTYPE html><html><head><title>P1012</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1012 拼数
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>字符串</li>
+<li>排序</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-built_in">string</span> a[<span class="hljs-number">25</span>];
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">cmp</span><span class="hljs-params">(<span class="hljs-built_in">string</span> a,<span class="hljs-built_in">string</span> b)</span></span>{
+    <span class="hljs-keyword">return</span> a+b&gt;b+a;
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">int</span> n;
+    <span class="hljs-built_in">cin</span>&gt;&gt;n;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++){
+        <span class="hljs-built_in">cin</span>&gt;&gt;a[i];
+    }
+    sort(a,a+n,cmp);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++){
+        <span class="hljs-built_in">cout</span>&lt;&lt;a[i];
+    }
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

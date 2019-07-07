@@ -1,0 +1,51 @@
+<!DOCTYPE html><html><head><title>P1006</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1006 传纸条
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>DP</li>
+</ul>
+<hr>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=<span class="hljs-number">60</span>;
+int a<span class="hljs-string">[maxn]</span><span class="hljs-string">[maxn]</span>;
+int f<span class="hljs-string">[2*maxn]</span><span class="hljs-string">[maxn]</span><span class="hljs-string">[maxn]</span>;
+int main(){
+        int m,n;
+        scanf(<span class="hljs-string">"%d%d"</span>,&amp;m,&amp;n);
+        for(int i=<span class="hljs-number">1</span>;i&lt;=m;i++){
+            for(int j=<span class="hljs-number">1</span>;j&lt;=n;j++){
+                scanf(<span class="hljs-string">"%d"</span>,&amp;a<span class="hljs-string">[i]</span><span class="hljs-string">[j]</span>);
+                }
+        }
+        memset(f,-<span class="hljs-number">1</span>,sizeof(f));
+        f<span class="hljs-string">[2]</span><span class="hljs-string">[1]</span><span class="hljs-string">[1]</span>=<span class="hljs-number">0</span>;
+        for(int k=<span class="hljs-number">3</span>;k&lt;m+n;k++){
+                for(int i=<span class="hljs-number">1</span>;i&lt;n;i++){
+                    for(int j=i+<span class="hljs-number">1</span>;j&lt;=n;j++){
+                        int s=f<span class="hljs-string">[k]</span><span class="hljs-string">[i]</span><span class="hljs-string">[j]</span>;
+                        if(f<span class="hljs-string">[k-1]</span><span class="hljs-string">[i]</span><span class="hljs-string">[j]</span>&gt;s){
+                            s=f<span class="hljs-string">[k-1]</span><span class="hljs-string">[i]</span><span class="hljs-string">[j]</span>;
+                                }
+                        if(f<span class="hljs-string">[k-1]</span><span class="hljs-string">[i-1]</span><span class="hljs-string">[j]</span>&gt;s){
+                            s=f<span class="hljs-string">[k-1]</span><span class="hljs-string">[i-1]</span><span class="hljs-string">[j]</span>;
+                                }
+                        if(f<span class="hljs-string">[k-1]</span><span class="hljs-string">[i]</span><span class="hljs-string">[j-1]</span>&gt;s){
+                            s=f<span class="hljs-string">[k-1]</span><span class="hljs-string">[i]</span><span class="hljs-string">[j-1]</span>;
+                                }
+                        if(f<span class="hljs-string">[k-1]</span><span class="hljs-string">[i-1]</span><span class="hljs-string">[j-1]</span>&gt;s){
+                            s=f<span class="hljs-string">[k-1]</span><span class="hljs-string">[i-1]</span><span class="hljs-string">[j-1]</span>;
+                                }
+                        if(s==-<span class="hljs-number">1</span>){
+                            continue;
+                                }
+                        f<span class="hljs-string">[k]</span><span class="hljs-string">[i]</span><span class="hljs-string">[j]</span>=s+a<span class="hljs-string">[k-i]</span><span class="hljs-string">[i]</span>+a<span class="hljs-string">[k-j]</span><span class="hljs-string">[j]</span>;
+                    }
+            }
+        }
+        printf(<span class="hljs-string">"%d"</span>,f<span class="hljs-string">[m+n-1]</span><span class="hljs-string">[n-1]</span><span class="hljs-string">[n]</span>);
+        return <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

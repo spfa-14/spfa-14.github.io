@@ -1,0 +1,44 @@
+<!DOCTYPE html><html><head><title>P1008</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1008 三连击
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>枚举</li>
+<li>模拟</li>
+</ul>
+<hr>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+int gw;
+int d[<span class="hljs-number">9</span>];
+void cf(int x){
+    while(x!=<span class="hljs-number">0</span>){
+        gw=x%<span class="hljs-number">10</span>;
+        x=(x-gw)/<span class="hljs-number">10</span>;
+        d[gw]++;
+    }
+}
+int main(){
+    int a,b,c;
+    for (int i=<span class="hljs-number">1</span>;i&lt;=<span class="hljs-number">9</span>;i++){
+        for (int j=<span class="hljs-number">1</span>;j&lt;=<span class="hljs-number">9</span>;j++){
+            for (int k=<span class="hljs-number">1</span>;k&lt;=<span class="hljs-number">9</span>;k++){
+                a=i*<span class="hljs-number">100</span>+j*<span class="hljs-number">10</span>+k;
+                b=a*<span class="hljs-number">2</span>;
+                c=a*<span class="hljs-number">3</span>;
+                cf(a);
+                cf(b);
+                cf(c);
+                if(d[<span class="hljs-number">1</span>]==<span class="hljs-number">1</span>&amp;&amp;d[<span class="hljs-number">2</span>]==<span class="hljs-number">1</span>&amp;&amp;d[<span class="hljs-number">3</span>]==<span class="hljs-number">1</span>&amp;&amp;d[<span class="hljs-number">4</span>]==<span class="hljs-number">1</span>&amp;&amp;d[<span class="hljs-number">5</span>]==<span class="hljs-number">1</span>&amp;&amp;d[<span class="hljs-number">6</span>]==<span class="hljs-number">1</span>&amp;&amp;d[<span class="hljs-number">7</span>]==<span class="hljs-number">1</span>&amp;&amp;d[<span class="hljs-number">8</span>]==<span class="hljs-number">1</span>&amp;&amp;d[<span class="hljs-number">9</span>]==<span class="hljs-number">1</span>){
+                    cout&lt;&lt;a&lt;&lt;<span class="hljs-string">" "</span>&lt;&lt;b&lt;&lt;<span class="hljs-string">" "</span>&lt;&lt;c&lt;&lt;endl;
+                }
+                for (int e=<span class="hljs-number">1</span>;e&lt;=<span class="hljs-number">9</span>;e++){
+                    d[e]=<span class="hljs-number">0</span>;
+                }
+            }
+        }
+    }
+    return <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

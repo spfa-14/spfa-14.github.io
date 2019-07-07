@@ -1,0 +1,107 @@
+<!DOCTYPE html><html><head><title>P1018</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1018 乘积最大
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>DP</li>
+<li>高精</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"># include &lt;cstdio&gt;
+# include &lt;cstring&gt;
+# include &lt;algorithm&gt;
+using namespace std;
+
+char s[<span class="hljs-number">50</span>];
+<span class="hljs-built_in">int</span> a2[<span class="hljs-number">50</span>];
+
+struct bigint{
+      <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> M = <span class="hljs-number">50</span>;
+      <span class="hljs-keyword">static</span> char str[M];
+      <span class="hljs-built_in">int</span> <span class="hljs-built_in">num</span>[M];
+      bigint(){
+        memset(<span class="hljs-built_in">num</span>,<span class="hljs-number">0</span>,sizeof(<span class="hljs-built_in">num</span>));
+        <span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+      }
+
+      <span class="hljs-keyword">void</span> read(){
+        scanf(<span class="hljs-string">"%s"</span>,str);
+        <span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] = strlen(str);
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>;i &lt;= <span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>];i++){
+            <span class="hljs-built_in">num</span>[i] = str[<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] - i] - <span class="hljs-string">'0'</span>;
+        }
+    }
+
+      <span class="hljs-keyword">void</span> <span class="hljs-built_in">print</span>(){
+       <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>];i &gt;= <span class="hljs-number">1</span>;i--){
+           printf(<span class="hljs-string">"%d"</span>,<span class="hljs-built_in">num</span>[i]);
+       }
+       puts(<span class="hljs-string">""</span>);
+      }
+
+      <span class="hljs-built_in">bool</span> <span class="hljs-keyword">operator</span> &lt; (<span class="hljs-keyword">const</span> bigint &amp;cmp) <span class="hljs-keyword">const</span>{
+        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] != cmp.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>]){
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] &lt; cmp.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>];
+        }
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>];i &gt;= <span class="hljs-number">1</span>;i--){
+            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">num</span>[i] != cmp.<span class="hljs-built_in">num</span>[i]){
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">num</span>[i] &lt; cmp.<span class="hljs-built_in">num</span>[i];
+            }
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+      }
+
+      bigint <span class="hljs-keyword">operator</span> * (<span class="hljs-keyword">const</span> bigint &amp;A) <span class="hljs-keyword">const</span>{
+        bigint B;
+        B.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] = A.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] + <span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>;i &lt;= <span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>];i++){
+            <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> j = <span class="hljs-number">1</span>;j &lt;= A.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>];j++){
+                B.<span class="hljs-built_in">num</span>[i + j - <span class="hljs-number">1</span>] += <span class="hljs-built_in">num</span>[i] * A.<span class="hljs-built_in">num</span>[j];
+                B.<span class="hljs-built_in">num</span>[i + j] += B.<span class="hljs-built_in">num</span>[i + j - <span class="hljs-number">1</span>] / <span class="hljs-number">10</span>;
+                B.<span class="hljs-built_in">num</span>[i + j - <span class="hljs-number">1</span>] %= <span class="hljs-number">10</span>;
+               }
+        }
+
+        <span class="hljs-keyword">while</span> (B.<span class="hljs-built_in">num</span>[B.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] + <span class="hljs-number">1</span>]){
+            B.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>]++;
+        }
+        <span class="hljs-keyword">return</span> B;
+    }
+};
+char bigint::str[M];
+bigint f[<span class="hljs-number">50</span>][<span class="hljs-number">10</span>];
+
+bigint sum(<span class="hljs-built_in">int</span> i,<span class="hljs-built_in">int</span> j){
+      bigint ans;
+      ans.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> x = j;x &gt;= i;x--){
+        ans.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>]++,ans.<span class="hljs-built_in">num</span>[ans.<span class="hljs-built_in">num</span>[<span class="hljs-number">0</span>]] = a2[x];
+    }
+    <span class="hljs-keyword">return</span> ans;
+}
+
+<span class="hljs-built_in">int</span> main(){
+      <span class="hljs-built_in">int</span> n,k;
+      scanf(<span class="hljs-string">"%d%d%*c"</span>,&amp;n,&amp;k);
+      scanf(<span class="hljs-string">"%s"</span>,s + <span class="hljs-number">1</span>);
+      <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i++){
+        a2[i] = s[i] - <span class="hljs-string">'0'</span>;
+    }
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i++){
+        f[i][<span class="hljs-number">0</span>] = sum(<span class="hljs-number">1</span>,i);
+    }
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i++){
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> j = <span class="hljs-number">1</span>;j &lt;= k;j++){
+            <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> y = j;y &lt; i;y++){
+                f[i][j] = max(f[y][j - <span class="hljs-number">1</span>] * sum(y + <span class="hljs-number">1</span>,i),f[i][j]);
+            }
+        }
+    }
+    f[n][k].<span class="hljs-built_in">print</span>();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

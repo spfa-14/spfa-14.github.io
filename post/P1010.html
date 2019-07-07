@@ -1,0 +1,29 @@
+<!DOCTYPE html><html><head><title>P1010</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1010 幂次方
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>分治</li>
+<li>数论</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">run</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>,<span class="hljs-built_in">string</span> s=<span class="hljs-built_in">string</span>(<span class="hljs-string">""</span>))</span></span>{
+    <span class="hljs-keyword">if</span>(x==<span class="hljs-number">0</span>){
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"0"</span>;
+    }
+    <span class="hljs-keyword">do</span>{
+        <span class="hljs-keyword">if</span>(x&amp;<span class="hljs-number">1</span>){
+            s=(i==<span class="hljs-number">1</span>?<span class="hljs-string">"2"</span>:<span class="hljs-string">"2("</span>+run(i)+<span class="hljs-string">")"</span>)+(s==<span class="hljs-string">""</span>?<span class="hljs-string">""</span>:<span class="hljs-string">"+"</span>)+s;
+        }
+    }<span class="hljs-keyword">while</span>(i++,x&gt;&gt;=<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">return</span> s;
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">int</span> x;
+    <span class="hljs-built_in">cin</span>&gt;&gt;x;
+    <span class="hljs-built_in">cout</span>&lt;&lt;run(x)&lt;&lt;<span class="hljs-built_in">endl</span>;
+}</code></pre>
+</body></html>

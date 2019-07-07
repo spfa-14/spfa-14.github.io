@@ -1,0 +1,77 @@
+<!DOCTYPE html><html><head><title>P1026</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1026统计单词个数
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>DP</li>
+<li>字符串</li>
+<li>枚举</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-meta"># <span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> p,k,s;
+<span class="hljs-keyword">int</span> a[<span class="hljs-number">210</span>][<span class="hljs-number">210</span>],f[<span class="hljs-number">210</span>][<span class="hljs-number">50</span>];
+<span class="hljs-keyword">char</span> c[<span class="hljs-number">210</span>],book[<span class="hljs-number">10</span>][<span class="hljs-number">210</span>];
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i,<span class="hljs-keyword">int</span> j)</span></span>{
+    <span class="hljs-keyword">char</span> tmp[<span class="hljs-number">210</span>];
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> x = i;x &lt;= j;x++) {
+        tmp[x] = c[x];
+    }
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>;x &lt;= s;x++){
+        <span class="hljs-keyword">bool</span> flag = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">if</span>(j - i + <span class="hljs-number">1</span> &lt; <span class="hljs-built_in">strlen</span>(book[x])){
+            <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> y = i;y &lt; <span class="hljs-built_in">strlen</span>(book[x]) + i;y++){
+            <span class="hljs-keyword">if</span>(book[x][y - i] != tmp[y]) {
+                flag = <span class="hljs-literal">false</span>;
+                <span class="hljs-keyword">break</span>;
+            }
+        }
+        <span class="hljs-keyword">if</span>(flag){
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+      }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d%d"</span>,&amp;p,&amp;k);
+    <span class="hljs-keyword">int</span> t = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i &lt; p;i++){
+        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,c + <span class="hljs-number">1</span> + <span class="hljs-number">20</span> * i);
+    }
+
+    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>,&amp;s);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= s;i++){
+        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>,book[i]);
+    }
+    <span class="hljs-keyword">int</span> len = <span class="hljs-number">20</span> * p;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = len;i &gt;= <span class="hljs-number">1</span>;i--){
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = i;j &gt;= <span class="hljs-number">1</span>;j--){
+            <span class="hljs-keyword">if</span>(search(j,i)){
+                a[j][i] = a[j + <span class="hljs-number">1</span>][i] + <span class="hljs-number">1</span>;
+            }<span class="hljs-keyword">else</span> {
+                a[j][i] = a[j + <span class="hljs-number">1</span>][i];  
+            }
+        }
+    }
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= len;i++){
+        f[i][<span class="hljs-number">1</span>] = a[<span class="hljs-number">1</span>][i];
+    }
+
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= len;i++){
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">2</span>;j &lt;= k;j++){
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> y = j;y &lt; i;y++){
+                f[i][j] = max(f[y][j - <span class="hljs-number">1</span>] + a[y + <span class="hljs-number">1</span>][i],f[i][j]);
+            }
+        }
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>,f[len][k]);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head><title>P1016</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1016 旅行家的预算
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>贪心</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-comment">#include&lt;cstdio&gt;</span>
+<span class="hljs-comment">#include&lt;iostream&gt;</span>
+using namespace std;
+double d[10],pi[10];
+int main(){
+    double d1,c,d2,p,<span class="hljs-attribute">pmin</span>=1000,l=0,pz=0;
+    int n;
+    cin&gt;&gt;d1&gt;&gt;c&gt;&gt;d2&gt;&gt;p&gt;&gt;n;
+    d[0]=0;
+    double <span class="hljs-attribute">d0</span>=0;
+    pi[0]=p;
+    double <span class="hljs-attribute">x</span>=c*d2;
+    <span class="hljs-keyword">for</span>(int <span class="hljs-attribute">i</span>=1;i&lt;=n;i++){
+        cin&gt;&gt;d[i]&gt;&gt;pi[i];
+    }
+    <span class="hljs-keyword">for</span>(int <span class="hljs-attribute">i</span>=1;i&lt;=n;i++){
+        <span class="hljs-keyword">if</span>(d[i]-d[i-1]&gt;x){
+            cout&lt;&lt;<span class="hljs-string">"No Solution"</span>&lt;&lt;endl;
+            return 0;
+        }
+    }
+    int <span class="hljs-attribute">ii</span>=0;
+    <span class="hljs-keyword">while</span>(d1-d0) {
+        <span class="hljs-keyword">for</span>(int <span class="hljs-attribute">i</span>=ii+1;d[i]-d0&lt;=x&amp;&amp;i&lt;=n;i++){
+            <span class="hljs-keyword">if</span>(pi[i]&lt;pmin){
+                <span class="hljs-attribute">pmin</span>=pi[i];
+                <span class="hljs-attribute">ii</span>=i;
+            }
+        }
+        <span class="hljs-keyword">if</span>(pmin&lt;=p){
+            pz+=((d[ii]-d0)/d2-l)*p;
+            l=(d[ii]-d0)/d2;
+        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(d1-d0&gt;x){
+            pz+=(c-l)*p;
+            <span class="hljs-attribute">l</span>=c;
+        }<span class="hljs-keyword">else</span>{
+            pz+=((d1-d0)/d2-l)*p;
+            break;
+        }
+        <span class="hljs-attribute">l</span>=l-(d[ii]-d0)/d2;
+        <span class="hljs-attribute">d0</span>=d[ii];
+        <span class="hljs-attribute">p</span>=pmin;
+        <span class="hljs-attribute">pmin</span>=1000;
+    }
+    printf(<span class="hljs-string">"%.2lf"</span>,pz);
+    return 0;
+}</code></pre>
+</body></html>

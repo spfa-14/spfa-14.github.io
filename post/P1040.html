@@ -1,0 +1,63 @@
+<!DOCTYPE html><html><head><title>P1040</title><link rel='stylesheet' type='text/css' href='../lib/spfa.css'><link rel='stylesheet' type='text/css' href='../lib/vs2015.css'><meta charset='utf-8'></head><body><hr>
+<p>title: P1040加分二叉树
+categories:</p>
+<ul>
+<li>code
+tags:</li>
+<li>DP</li>
+<li>枚举</li>
+<li>递归</li>
+</ul>
+<hr>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstdio&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> dp[<span class="hljs-number">50</span>][<span class="hljs-number">50</span>];
+<span class="hljs-keyword">int</span> root[<span class="hljs-number">50</span>][<span class="hljs-number">50</span>];
+<span class="hljs-keyword">int</span> v[<span class="hljs-number">50</span>];
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l,<span class="hljs-keyword">int</span> r)</span></span>{
+    <span class="hljs-keyword">if</span>(dp[l][r]&gt;<span class="hljs-number">0</span>){
+        <span class="hljs-keyword">return</span> dp[l][r];
+    }
+    <span class="hljs-keyword">if</span>(l==r){
+        <span class="hljs-keyword">return</span> v[l];
+    }
+    <span class="hljs-keyword">if</span>(r&lt;l){
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=l;i&lt;=r;i++){
+        <span class="hljs-keyword">int</span> p=search(l,i<span class="hljs-number">-1</span>)*search(i+<span class="hljs-number">1</span>,r)+dp[i][i];
+        <span class="hljs-keyword">if</span>(p&gt;dp[l][r]){
+            dp[l][r]=p;
+            root[l][r]=i;
+        }
+    }
+    <span class="hljs-keyword">return</span> dp[l][r];
+}
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l,<span class="hljs-keyword">int</span> r)</span></span>{
+    <span class="hljs-keyword">if</span>(r&lt;l){
+        <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-keyword">if</span>(l==r){
+        <span class="hljs-built_in">cout</span>&lt;&lt;l&lt;&lt;<span class="hljs-string">" "</span>;
+        <span class="hljs-keyword">return</span>;
+    }
+
+    <span class="hljs-built_in">cout</span>&lt;&lt;root[l][r]&lt;&lt;<span class="hljs-string">" "</span>;
+
+    print(l,root[l][r]<span class="hljs-number">-1</span>);
+    print(root[l][r]+<span class="hljs-number">1</span>,r);
+}
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>{
+    <span class="hljs-keyword">int</span> n;
+    <span class="hljs-built_in">cin</span>&gt;&gt;n;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++){
+        <span class="hljs-built_in">cin</span>&gt;&gt;v[i];
+        dp[i][i]=v[i];
+    }
+    <span class="hljs-built_in">cout</span>&lt;&lt;search(<span class="hljs-number">1</span>,n)&lt;&lt;<span class="hljs-built_in">endl</span>;
+    print(<span class="hljs-number">1</span>,n);
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+</body></html>
